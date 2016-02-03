@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class S1Topic;
-
 @interface S1NetworkManager : NSObject
 
 + (void)requestTopicListForKey:(NSString *)key

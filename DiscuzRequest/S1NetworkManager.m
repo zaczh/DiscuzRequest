@@ -14,6 +14,44 @@
 
 static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
 
+static void handleServerData(NSURLSessionDataTask *task, NSURLResponse *response, NSData *data, NSError *error, void (^success)(NSURLSessionDataTask *, id), void (^failure)(NSURLSessionDataTask *, NSError *)) {
+    if (error == nil) {
+        if (success != nil) {
+            NSError *jsonlizationError = nil;
+            id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+            if (jsonlizationError != nil) {
+                if (failure != nil) {
+                    failure(task, jsonlizationError);
+                }
+            }
+            else {
+                success(task, obj);
+            }
+        }
+    }
+    else {
+        if (failure != nil) {
+            failure(task, error);
+        }
+    }
+}
+
+static NSString *queryStringFromParameterDictionary(NSDictionary *params) {
+    NSMutableArray *queries = [NSMutableArray array];
+    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSString class]]) {
+            NSString *value = obj;
+            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
+        }
+        else {
+            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
+        }
+    }];
+    NSString *query = [queries componentsJoinedByString:@"&"];
+    
+    return query;
+}
+
 @implementation S1NetworkManager
 #pragma mark - Topic List
 + (void)requestTopicListForKey:(NSString *)keyID
@@ -24,25 +62,7 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -55,25 +75,7 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -87,25 +89,7 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -119,25 +103,7 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -146,29 +112,11 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
 
 + (void)checkLoginStateAPIwithSuccessBlock:(void (^)(NSURLSessionDataTask *, id))success
                               failureBlock:(void (^)(NSURLSessionDataTask *, NSError *))failure {
-    NSString *url = [NSString stringWithFormat:@"api/mobile/?module=%@", @"login"];//is it a typo?
+    NSString *url = [NSString stringWithFormat:@"api/mobile/?module=%@", @"login"];//TODO: is it a typo?
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -190,25 +138,7 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
                           [password stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], @"ls", @"yes", @"2592000"];
     [request setHTTPBody:[NSData dataWithBytes:[bodyData UTF8String] length:strlen([bodyData UTF8String])]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -221,25 +151,7 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -265,40 +177,12 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
                              @"inajax": @1,
                              @"ajaxtarget": @"fwin_content_reply"};
     
-    NSMutableArray *queries = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString *value = obj;
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-        }
-        else {
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
-        }
-    }];
-    NSString *query = [queries componentsJoinedByString:@"&"];
+    NSString *query = queryStringFromParameterDictionary(params);
     NSString *url = [NSString stringWithFormat:@"member.php?%@", query];
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -316,39 +200,11 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
     
-    NSMutableArray *queries = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString *value = obj;
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-        }
-        else {
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
-        }
-    }];
-    NSString *bodyData = [queries componentsJoinedByString:@"&"];
+    NSString *query = queryStringFromParameterDictionary(params);
     
-    [request setHTTPBody:[NSData dataWithBytes:[bodyData UTF8String] length:strlen([bodyData UTF8String])]];
+    [request setHTTPBody:[NSData dataWithBytes:[query UTF8String] length:strlen([query UTF8String])]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -364,39 +220,11 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
-    NSMutableArray *queries = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString *value = obj;
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-        }
-        else {
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
-        }
-    }];
-    NSString *bodyData = [queries componentsJoinedByString:@"&"];
+    NSString *query = queryStringFromParameterDictionary(params);
     
-    [request setHTTPBody:[NSData dataWithBytes:[bodyData UTF8String] length:strlen([bodyData UTF8String])]];
+    [request setHTTPBody:[NSData dataWithBytes:[query UTF8String] length:strlen([query UTF8String])]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -412,40 +240,12 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
                              @"pid" : floorID,
                              @"ptid" : topicID};
     
-    NSMutableArray *queries = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString *value = obj;
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-        }
-        else {
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
-        }
-    }];
-    NSString *query = [queries componentsJoinedByString:@"&"];
+    NSString *query = queryStringFromParameterDictionary(params);
     NSString *url = [NSString stringWithFormat:@"forum.php?%@", query];
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -473,39 +273,11 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
-    NSMutableArray *queries = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString *value = obj;
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-        }
-        else {
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
-        }
-    }];
-    NSString *bodyData = [queries componentsJoinedByString:@"&"];
+    NSString *query = queryStringFromParameterDictionary(params);
     
-    [request setHTTPBody:[NSData dataWithBytes:[bodyData UTF8String] length:strlen([bodyData UTF8String])]];
+    [request setHTTPBody:[NSData dataWithBytes:[query UTF8String] length:strlen([query UTF8String])]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -521,40 +293,12 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
                              @"page" : page,
                              @"searchsubmit" : @"yes"};
     
-    NSMutableArray *queries = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString *value = obj;
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-        }
-        else {
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
-        }
-    }];
-    NSString *query = [queries componentsJoinedByString:@"&"];
+    NSString *query = queryStringFromParameterDictionary(params);
     NSString *url = [NSString stringWithFormat:@"search.php?%@", query];
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -573,40 +317,12 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
                              @"page" : page,
                              @"order" : @"dateline"};
     
-    NSMutableArray *queries = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString *value = obj;
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-        }
-        else {
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
-        }
-    }];
-    NSString *query = [queries componentsJoinedByString:@"&"];
+    NSString *query = queryStringFromParameterDictionary(params);
     NSString *url = [NSString stringWithFormat:@"home.php?%@", query];
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -624,40 +340,12 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
                              @"page" : page,
                              @"order" : @"dateline"};
     
-    NSMutableArray *queries = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString *value = obj;
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-        }
-        else {
-            [queries addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
-        }
-    }];
-    NSString *query = [queries componentsJoinedByString:@"&"];
+    NSString *query = queryStringFromParameterDictionary(params);
     NSString *url = [NSString stringWithFormat:@"home.php?%@", query];
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url relativeToURL:[NSURL URLWithString:baseURL]]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            if (success != nil) {
-                NSError *jsonlizationError = nil;
-                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
-                if (jsonlizationError != nil) {
-                    if (failure != nil) {
-                        failure(task, jsonlizationError);
-                    }
-                }
-                else {
-                    success(task, obj);
-                }
-            }
-        }
-        else {
-            if (failure != nil) {
-                failure(task, error);
-            }
-        }
+        handleServerData(task, response, data, error, success, failure);
     }];
     [task resume];
 }
@@ -667,22 +355,8 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
 {
     [[NSURLSession sharedSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
         // NSLog(@"%lu,%lu,%lu",(unsigned long)dataTasks.count, (unsigned long)uploadTasks.count, (unsigned long)downloadTasks.count);
-        for (NSURLSessionDataTask* task in downloadTasks) {
-            [task cancel];
-        }
-        for (NSURLSessionDataTask* task in dataTasks) {
-            [task cancel];
-        }
-    }];
-    
-    [[NSURLSession sharedSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
-        // NSLog(@"%lu,%lu,%lu",(unsigned long)dataTasks.count, (unsigned long)uploadTasks.count, (unsigned long)downloadTasks.count);
-        for (NSURLSessionDataTask* task in downloadTasks) {
-            [task cancel];
-        }
-        for (NSURLSessionDataTask* task in dataTasks) {
-            [task cancel];
-        }
+        [dataTasks makeObjectsPerformSelector:@selector(cancel)];
+        [downloadTasks makeObjectsPerformSelector:@selector(cancel)];
     }];
 }
 
