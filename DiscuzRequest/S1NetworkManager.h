@@ -89,6 +89,6 @@
                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
 
-+ (void)cancelRequest;
++ (void)cancelAllRequests;
 
 @end

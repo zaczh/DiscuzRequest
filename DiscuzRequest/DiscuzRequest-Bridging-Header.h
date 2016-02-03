@@ -8,6 +8,5 @@
 
 #ifndef DiscuzRequest_Bridging_Header_h
 #define DiscuzRequest_Bridging_Header_h
-#import "S1NetworkManager.h"
 
 #endif /* DiscuzRequest_Bridging_Header_h */

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F4892651C619435000CA13A /* S1NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4892641C619435000CA13A /* S1NetworkManager.m */; };
-		1F4892881C61A430000CA13A /* DiscuzRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4892871C61A430000CA13A /* DiscuzRequestTests.swift */; };
 		1F48928A1C61A430000CA13A /* libDiscuzRequest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4892571C619405000CA13A /* libDiscuzRequest.a */; };
+		1F642A461C61F4070033826A /* DiscuzRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F642A451C61F4070033826A /* DiscuzRequestTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,9 +39,11 @@
 		1F4892631C619435000CA13A /* S1NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = S1NetworkManager.h; sourceTree = "<group>"; };
 		1F4892641C619435000CA13A /* S1NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S1NetworkManager.m; sourceTree = "<group>"; };
 		1F4892851C61A430000CA13A /* DiscuzRequestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiscuzRequestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F4892871C61A430000CA13A /* DiscuzRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscuzRequestTests.swift; sourceTree = "<group>"; };
 		1F4892891C61A430000CA13A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1F4892901C61A67D000CA13A /* DiscuzRequest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DiscuzRequest-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F642A431C61F4070033826A /* DiscuzRequestTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DiscuzRequestTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F642A441C61F4070033826A /* DiscuzRequestTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscuzRequestTests.h; sourceTree = "<group>"; };
+		1F642A451C61F4070033826A /* DiscuzRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscuzRequestTests.m; sourceTree = "<group>"; };
+		1F642A8F1C61F7780033826A /* DiscuzRequest-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DiscuzRequest-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +68,6 @@
 		1F48924E1C619405000CA13A = {
 			isa = PBXGroup;
 			children = (
-				1F4892901C61A67D000CA13A /* DiscuzRequest-Bridging-Header.h */,
 				1F4892591C619405000CA13A /* DiscuzRequest */,
 				1F4892861C61A430000CA13A /* DiscuzRequestTests */,
 				1F4892581C619405000CA13A /* Products */,
@@ -85,6 +86,7 @@
 		1F4892591C619405000CA13A /* DiscuzRequest */ = {
 			isa = PBXGroup;
 			children = (
+				1F642A8F1C61F7780033826A /* DiscuzRequest-Bridging-Header.h */,
 				1F4892631C619435000CA13A /* S1NetworkManager.h */,
 				1F4892641C619435000CA13A /* S1NetworkManager.m */,
 			);
@@ -94,8 +96,10 @@
 		1F4892861C61A430000CA13A /* DiscuzRequestTests */ = {
 			isa = PBXGroup;
 			children = (
-				1F4892871C61A430000CA13A /* DiscuzRequestTests.swift */,
 				1F4892891C61A430000CA13A /* Info.plist */,
+				1F642A441C61F4070033826A /* DiscuzRequestTests.h */,
+				1F642A451C61F4070033826A /* DiscuzRequestTests.m */,
+				1F642A431C61F4070033826A /* DiscuzRequestTests-Bridging-Header.h */,
 			);
 			path = DiscuzRequestTests;
 			sourceTree = "<group>";
@@ -144,7 +148,7 @@
 		1F48924F1C619405000CA13A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = zaczh;
 				TargetAttributes = {
@@ -197,7 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F4892881C61A430000CA13A /* DiscuzRequestTests.swift in Sources */,
+				1F642A461C61F4070033826A /* DiscuzRequestTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,10 +322,12 @@
 		1F48928E1C61A430000CA13A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = DiscuzRequestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.zaczh.DiscuzRequestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DiscuzRequestTests/DiscuzRequestTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -329,10 +335,12 @@
 		1F48928F1C61A430000CA13A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = DiscuzRequestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.zaczh.DiscuzRequestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DiscuzRequestTests/DiscuzRequestTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -364,6 +372,7 @@
 				1F48928F1C61A430000CA13A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

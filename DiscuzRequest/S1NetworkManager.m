@@ -12,7 +12,7 @@
 
 @end
 
-static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
+static NSString *baseURL = @"http://bbs.saraba1st.com/2b/";
 
 @implementation S1NetworkManager
 #pragma mark - Topic List
@@ -26,7 +26,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -48,7 +57,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -71,7 +89,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -94,7 +121,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -116,7 +152,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -147,7 +192,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -169,7 +223,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -219,7 +282,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -260,7 +332,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -299,7 +380,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -339,7 +429,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -390,7 +489,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -430,7 +538,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -473,7 +590,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -515,7 +641,16 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error == nil) {
             if (success != nil) {
-                success(task, data);
+                NSError *jsonlizationError = nil;
+                id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonlizationError];
+                if (jsonlizationError != nil) {
+                    if (failure != nil) {
+                        failure(task, jsonlizationError);
+                    }
+                }
+                else {
+                    success(task, obj);
+                }
             }
         }
         else {
@@ -528,7 +663,7 @@ static NSString *baseURL = @"http://bbs.saraba1st.com/2b";
 }
 
 #pragma mark - Cancel
-+ (void) cancelRequest
++ (void) cancelAllRequests
 {
     [[NSURLSession sharedSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
         // NSLog(@"%lu,%lu,%lu",(unsigned long)dataTasks.count, (unsigned long)uploadTasks.count, (unsigned long)downloadTasks.count);
